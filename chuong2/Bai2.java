@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ltm;
+package chuong2; 
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -19,13 +14,17 @@ class Test {
     private double width;
     private double perimeter;
     private double area;
+    
+    private static boolean isInput = false;
+    private static boolean isCaculatedArea = false;
+    private static boolean isCauclatedPerimeter = false;
 
     public Test() {
 
     }
 
-    public void inputData() {
-        System.out.println(Thread.currentThread().getName() + ": ");
+    public synchronized void inputData() {
+        System.out.println("LUỒNG NHẬP DỮ LIỆU đang hoạt động: ");
 
         Scanner sc = new Scanner(System.in);
         System.out.print("\tEnter height: ");
@@ -33,19 +32,40 @@ class Test {
         System.out.print("\tEnter width: ");
         this.width = sc.nextDouble();
         sc.close();
+        isInput = true;
         System.out.println("");
     }
 
     public void caculateArea() {
+        System.out.println("LUỒNG DIỆN TÍCH đang hoạt động");
+        while(!isInput){
+            System.out.println("Luồng Diện tích đang chờ LUỒNG NHẬP DỮ LIỆU\n");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         setArea(width * height);
         System.out.println(Thread.currentThread().getName()
                 + ":\n\t Area of the rectangle: " + getArea() + "\n");
+        isCaculatedArea = true;
     }
 
     public void caculatePerimeter() {
+        System.out.println("LUỒNG CHU VI đang hoạt động");
+        while(!isInput){
+            System.out.println("Luồng Chu vi đang chờ LUỒNG NHẬP DỮ LIỆU\n");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         setPerimeter((width + height) * 2);
         System.out.println(Thread.currentThread().getName()
                 + ":\n\t Perimeter of the rectangle: " + getPerimeter() + "\n");
+        isCauclatedPerimeter = true;
     }
 
     public double getPerimeter() {
@@ -63,6 +83,20 @@ class Test {
     public void setArea(double area) {
         this.area = area;
     }
+
+    public static boolean isInput() {
+        return isInput;
+    }
+
+    public static boolean isCaculatedArea() {
+        return isCaculatedArea;
+    }
+
+    public static boolean isCauclatedPerimeter() {
+        return isCauclatedPerimeter;
+    }
+    
+    
 
     public static void main(String[] args) throws InterruptedException {
         Test t = new Test();
@@ -91,13 +125,30 @@ class Test {
         }, "Perimeter Thread");
 
         t1.start();
-        t1.join();
-
         t2.start();
         t3.start();
-
-        t2.join();
-        t3.join();
+        
+        while(!t.isInput() || !t.isCauclatedPerimeter()
+                || !t.isCaculatedArea()){
+            if (!t.isInput()) {
+                System.out.println("LUỒNG CHÍNH đang chờ LUỒNG NHẬP DỮ LIỆU");
+            }
+            
+            if (!t.isCaculatedArea()) {
+                System.out.println("LUỒNG CHÍNH đang chờ kết quả LUỒNG DIỆN TÍCH");
+            }
+            
+            if (!t.isCauclatedPerimeter()) {
+                System.out.println("LUỒNG CHÍNH đang chờ kết quả LUỒNG CHU VI\n");
+            }
+            
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("");
+        }
 
         System.out.println("Main Thread: \n\t Area: " + t.getArea()
                 + " \n\tPerimeter: " + t.getPerimeter());

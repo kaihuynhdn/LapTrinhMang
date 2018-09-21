@@ -15,18 +15,15 @@ public class Bai1 {
         int n = 10;
         Thread thread1 = new Thread(new Runnable1(n));
         Thread thread2 = new Thread(new Runnable2(n));
-        Thread thread3= new Thread(new Runnable3(n));
+        Thread thread3 = new Thread(new Runnable3(n));
         Thread thread4 = new Thread(new Runnable4());
-        
+
         thread1.start();
-        thread1.join();
-        
+
         thread2.start();
-        thread2.join();
-        
+
         thread3.start();
-        thread3.join();
-        
+
         thread4.start();
     }
 }
@@ -40,13 +37,14 @@ class Runnable1 implements Runnable {
     }
 
     public void run() {
-        System.out.println("Số lẻ nhỏ hơn n: ");
+        StringBuilder s = new StringBuilder();
+        s.append("Số lẻ nhỏ hơn n: ");
         for (int i = 1; i <= n; i++) {
             if (i % 2 != 0) {
-                System.out.print(i + " ");
+                s.append(i + " ");
             }
         }
-        System.out.println("\n");
+        System.out.println(s + "\n");
     }
 }
 
@@ -59,13 +57,14 @@ class Runnable2 implements Runnable {
     }
 
     public void run() {
-        System.out.println("Số chẵn nhỏ hơn n: ");
+        StringBuilder s = new StringBuilder();
+        s.append("Số chẵn nhỏ hơn n: ");
         for (int i = 1; i <= n; i++) {
             if (i % 2 == 0) {
-                System.out.print(i + " ");
+                s.append(i + " ");
             }
         }
-        System.out.println("\n");
+        System.out.println(s + "\n");
     }
 }
 
@@ -78,21 +77,23 @@ class Runnable3 implements Runnable {
     }
 
     public void run() {
-        System.out.println("In ra từ 1 -> n: ");
+        StringBuilder s = new StringBuilder();
+        s.append("In ra từ 1 -> n: ");
         for (int i = 1; i <= n; i++) {
-            System.out.print(i + " ");
+            s.append(i + " ");
         }
-        System.out.println("\n");
+        System.out.println(s + "\n");
     }
 }
 
 class Runnable4 implements Runnable {
 
     public void run() {
-        System.out.println("Danh sách ký tự hoa: ");
+        StringBuilder s = new StringBuilder();
+        s.append("Danh sách ký tự hoa: ");
         for (int i = 65; i <= 90; i++) {
-            System.out.print((char) i + " ");
+             s.append((char) i + " ");
         }
-        System.out.println();
+        System.out.println(s + "\n");
     }
 }
