@@ -41,7 +41,7 @@ class Runnable1 implements Runnable {
         s.append("Số lẻ nhỏ hơn n: ");
         for (int i = 1; i <= n; i++) {
             if (i % 2 != 0) {
-                s.append(i + " ");
+                s.append(String.valueOf(i + " "));
             }
         }
         System.out.println(s + "\n");
@@ -61,7 +61,7 @@ class Runnable2 implements Runnable {
         s.append("Số chẵn nhỏ hơn n: ");
         for (int i = 1; i <= n; i++) {
             if (i % 2 == 0) {
-                s.append(i + " ");
+                s.append(String.valueOf(i + " "));
             }
         }
         System.out.println(s + "\n");
@@ -80,7 +80,7 @@ class Runnable3 implements Runnable {
         StringBuilder s = new StringBuilder();
         s.append("In ra từ 1 -> n: ");
         for (int i = 1; i <= n; i++) {
-            s.append(i + " ");
+            s.append(String.valueOf(i + " "));
         }
         System.out.println(s + "\n");
     }

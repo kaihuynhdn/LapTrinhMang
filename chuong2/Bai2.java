@@ -8,7 +8,7 @@ import java.util.logging.Logger;
  *
  * @author Kai
  */
-class Test {
+class Rectangle {
 
     private double height;
     private double width;
@@ -19,7 +19,7 @@ class Test {
     private static boolean isCaculatedArea = false;
     private static boolean isCauclatedPerimeter = false;
 
-    public Test() {
+    public Rectangle() {
 
     }
 
@@ -43,7 +43,7 @@ class Test {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Rectangle.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         setArea(width * height);
@@ -59,7 +59,7 @@ class Test {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Rectangle.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         setPerimeter((width + height) * 2);
@@ -99,7 +99,7 @@ class Test {
     
 
     public static void main(String[] args) throws InterruptedException {
-        Test t = new Test();
+        Rectangle t = new Rectangle();
 
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -145,7 +145,7 @@ class Test {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Rectangle.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("");
         }

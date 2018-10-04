@@ -27,7 +27,6 @@ class Account {
         this.balance = balance;
     }
 
-    
     public double getBalance() {
         return balance;
     }
@@ -54,27 +53,28 @@ class Account {
             }
             setBalance(money);
             System.out.println("Success! You have withdrawn $"
-                + amount + ". Your balance: " + getBalance());
+                    + amount + ". Your balance: " + getBalance());
         } else {
             System.out.println("You dont have enought money.");
         }
     }
 }
 
-class AccountTest{
+class AccountTest {
+
     public static void main(String[] args) throws InterruptedException {
         Account account = new Account(10);
-        
+
         System.out.println("Balance:" + account.getBalance());
-        
+
         Thread a = new Thread(new Runnable() {
             @Override
             public void run() {
-                    account.deposit(2);
+                account.deposit(2);
             }
         });
         a.start();
-        
+
         Thread b = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -82,19 +82,19 @@ class AccountTest{
             }
         });
         b.start();
-        
+
         Thread c = new Thread(new Runnable() {
             @Override
             public void run() {
                 account.withdraw(7);
-            } 
+            }
         });
         c.start();
-        
+
         a.join();
         b.join();
         c.join();
-        
+
         System.out.println(account.getBalance());
     }
 }
